@@ -1,0 +1,7 @@
+name: HDK Hello World
+code: HelloWorld
+version: 1.0.0
+service:
+    - HelloWorldServiceProvider
+const:
+    product_maximum_display: 20

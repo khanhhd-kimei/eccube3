@@ -1,0 +1,132 @@
+{% extends 'default_frame.twig' %}
+
+{% set menus = ['store', 'plugin', 'plugin_list'] %}
+
+{% block title %}ログ通知設定画面{% endblock %}
+{% block sub_title %}ログ通知設定{% endblock %}
+
+{% form_theme form 'Form/bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block javascript %}
+    <script>
+        $(function() {
+
+            // Slackチェックボックス
+            var $slack = $('#sendlogreport_config_is_slack');
+            slack_check($slack);
+
+            $slack.click(function() {
+                slack_check($(this));
+            });
+
+            function slack_check(slack) {
+                var check = $(slack).prop('checked');
+
+                if (check) {
+                    $('#sendlogreport_config_token').prop('disabled', false);
+                    $('#sendlogreport_config_channel').prop('disabled', false);
+                    $('#sendlogreport_config_username').prop('disabled', false);
+                    $('#sendlogreport_config_slack_error_level').prop('disabled', false);
+                } else {
+                    $('#sendlogreport_config_token').prop('disabled', true);
+                    $('#sendlogreport_config_channel').prop('disabled', true);
+                    $('#sendlogreport_config_username').prop('disabled', true);
+                    $('#sendlogreport_config_slack_error_level').prop('disabled', true);
+                }
+            }
+
+            // メールチェックボックス
+            var $mail = $('#sendlogreport_config_is_mail');
+            mail_check($mail);
+
+            $mail.click(function() {
+                mail_check($(this));
+            });
+
+            function mail_check(slack) {
+                var check = $(slack).prop('checked');
+
+                if (check) {
+                    $('#sendlogreport_config_subject').prop('disabled', false);
+                    $('#sendlogreport_config_mail_from').prop('disabled', false);
+                    $('#sendlogreport_config_mail_to1').prop('disabled', false);
+                    $('#sendlogreport_config_mail_to2').prop('disabled', false);
+                    $('#sendlogreport_config_mail_to3').prop('disabled', false);
+                    $('#sendlogreport_config_mail_to4').prop('disabled', false);
+                    $('#sendlogreport_config_mail_to5').prop('disabled', false);
+                    $('#sendlogreport_config_message').prop('disabled', false);
+                    $('#sendlogreport_config_mail_error_level').prop('disabled', false);
+                } else {
+                    $('#sendlogreport_config_subject').prop('disabled', true);
+                    $('#sendlogreport_config_mail_from').prop('disabled', true);
+                    $('#sendlogreport_config_mail_to1').prop('disabled', true);
+                    $('#sendlogreport_config_mail_to2').prop('disabled', true);
+                    $('#sendlogreport_config_mail_to3').prop('disabled', true);
+                    $('#sendlogreport_config_mail_to4').prop('disabled', true);
+                    $('#sendlogreport_config_mail_to5').prop('disabled', true);
+                    $('#sendlogreport_config_message').prop('disabled', true);
+                    $('#sendlogreport_config_mail_error_level').prop('disabled', true);
+                }
+            }
+
+        });
+    </script>
+{% endblock javascript %}
+
+
+{% block main %}
+    <form class="form-horizontal" method="post" action="{{ url('plugin_SendLogReport_config') }}">
+        {{ form_widget(form._token) }}
+        <div class="row" id="aside_wrap">
+            <div class="col-md-9">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Slack通知設定</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body form-horizontal">
+                        {{ form_row(form.is_slack) }}
+                        {{ form_row(form.token) }}
+                        {{ form_row(form.channel) }}
+                        {{ form_row(form.username) }}
+                        {{ form_row(form.slack_error_level) }}
+                    </div>
+                    <div class="box-header">
+                        <h3 class="box-title">メール通知設定</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body form-horizontal">
+                        {{ form_row(form.is_mail) }}
+                        {{ form_row(form.subject) }}
+                        {{ form_row(form.mail_from) }}
+                        {{ form_row(form.mail_to1) }}
+                        {{ form_row(form.mail_to2) }}
+                        {{ form_row(form.mail_to3) }}
+                        {{ form_row(form.mail_to4) }}
+                        {{ form_row(form.mail_to5) }}
+                        {{ form_row(form.message) }}
+                        {{ form_row(form.mail_error_level) }}
+                    </div>
+                    <div class="box-header">
+                        <h3 class="box-title">ログ通知対象設定</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body form-horizontal">
+                        {{ form_row(form.log_select) }}
+                        <p class="text-danger">※ログ通知除外対象を選択すると、選択された対象のログは通知されません。</p>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div><!-- /.col -->
+            <div class="col-md-3" id="aside_column">
+                <div id="common_box" class="col_inner">
+                    <div id="common_button_box" class="box no-header">
+                        <div id="common_button_box__body" class="box-body">
+                            <div id="common_button_box__edit_button" class="row text-center">
+                                <div class="col-sm-6 col-sm-offset-3 col-md-12 col-md-offset-0">
+                                    <button class="btn btn-primary btn-block btn-lg" type="submit">設定</button>
+                                </div>
+                            </div>
+                        </div><!-- /.box-body -->
+                    </div><!-- /.box -->
+                </div>
+            </div><!-- /.col -->
+        </div>
+    </form>
+{% endblock main %}

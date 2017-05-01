@@ -1,0 +1,8 @@
+name: 通知ログレポート
+code: SendLogReport
+version: 1.0.0
+event: SendLogReportEvent
+service:
+    - SendLogReportServiceProvider
+orm.path:
+    - /Resource/doctrine

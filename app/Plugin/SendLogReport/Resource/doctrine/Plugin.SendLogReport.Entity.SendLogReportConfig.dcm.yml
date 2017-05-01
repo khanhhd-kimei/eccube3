@@ -1,0 +1,79 @@
+Plugin\SendLogReport\Entity\SendLogReportConfig:
+    type: entity
+    table: plg_send_log_report_config
+    repositoryClass: Plugin\SendLogReport\Repository\SendLogReportConfigRepository
+    id:
+        id:
+            type: smallint
+            nullable: false
+            id: true
+            column: send_log_report_config_id
+            options:
+              unsigned: true
+    fields:
+        is_slack:
+            type: boolean
+            nullable: false
+        token:
+            type: string
+            length: 200
+            nullable: true
+        channel:
+            type: string
+            length: 50
+            nullable: true
+        username:
+            type: string
+            length: 50
+            nullable: true
+        slack_error_level:
+            type: smallint
+            nullable: true
+            options:
+              unsigned: true
+        is_mail:
+            type: boolean
+            nullable: false
+        subject:
+            type: string
+            length: 100
+            nullable: true
+        mail_from:
+            type: string
+            length: 100
+            nullable: true
+        mail_to1:
+            type: string
+            length: 100
+            nullable: true
+        mail_to2:
+            type: string
+            length: 100
+            nullable: true
+        mail_to3:
+            type: string
+            length: 100
+            nullable: true
+        mail_to4:
+            type: string
+            length: 100
+            nullable: true
+        mail_to5:
+            type: string
+            length: 100
+            nullable: true
+        message:
+            type: string
+            length: 500
+            nullable: true
+        log_select:
+            type: string
+            length: 500
+            nullable: true
+        mail_error_level:
+            type: smallint
+            nullable: true
+            options:
+              unsigned: true
+    lifecycleCallbacks:
+        loadClassMetadata: {  }
